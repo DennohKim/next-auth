@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { FcGoogle } from 'react-icons/fc'
+import { FcGoogle } from 'react-icons/fc';
+// import { signIn, signOut } from 'next-auth/react';
 
 export default function Home() {
   return (
@@ -11,10 +12,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex items-center justify-center w-screen h-screen bg-slate-50">
-        <div className="flex justify-center items-center w-64 h-auto px-4 py-2 border rounded-md border-gray-300">
+        <button className="flex justify-center items-center w-64 h-auto px-4 py-2 border rounded-md border-gray-300">
           <FcGoogle fontSize={30}/>
           <span className="ml-4">Sign in with Google</span>
-        </div>
+        </button>
       </div>
     </div>
   );
