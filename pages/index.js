@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import { useState } from 'react';
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, getSession, signOut } from "next-auth/react"
 
 export default function Home() {
 
@@ -55,4 +55,26 @@ function User({session}){
           </div>
       </main>
   )
+}
+
+//Only accesss the home page if we have a user
+export async function getServerSideProps({req}){
+
+  const session = await getSession({req})
+  
+
+  if(!session){
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      session
+    }
+  }
 }
