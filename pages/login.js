@@ -5,15 +5,34 @@ import styles from '../styles/Form.module.css';
 import Image from 'next/image'
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
-import { signIn } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react";
+import { useFormik } from 'formik';
 
 export default function Login(){
 
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
 
-    //Google handler function
+        },
+        onSubmit
+       
+    })
+
+    async function onSubmit(values){
+        console.log(values)
+    }
+
+    // Google Handler function
     async function handleGoogleSignin(){
-        signIn('google', {callbackUrl: "http://localhost:3000"})
+        signIn('google', { callbackUrl : "http://localhost:3000"})
+    }
+
+    // Github Login 
+    async function handleGithubSignin(){
+        signIn('github', { callbackUrl : "http://localhost:3000"})
     }
 
     return (
@@ -30,13 +49,14 @@ export default function Login(){
             </div>
 
             {/* form */}
-            <form className='flex flex-col gap-5'>
+            <form onSubmit={formik.handleSubmit} className='flex flex-col gap-5'>
                 <div className={styles.input_group}>
                     <input 
                     type="email"
                     name='email'
                     placeholder='Email'
                     className={styles.input_text}
+                    {...formik.getFieldProps('email')}
                     />
                     <span className='icon flex items-center px-4'>
                         <HiAtSymbol size={25} />
@@ -48,6 +68,7 @@ export default function Login(){
                     name='password'
                     placeholder='password'
                     className={styles.input_text}
+                    {...formik.getFieldProps('password')}
                     />
                      <span className='icon flex items-center px-4' onClick={() => setShow(!show)}>
                         <HiFingerPrint size={25} />
@@ -66,7 +87,7 @@ export default function Login(){
                     </button>
                 </div>
                 <div className="input-button">
-                    <button type='button' className={styles.button_custom}>
+                    <button type='button' onClick={handleGithubSignin} className={styles.button_custom}>
                         Sign In with Github <Image src={'/assets/github.svg'} width={25} height={25}></Image>
                     </button>
                 </div>
@@ -74,7 +95,7 @@ export default function Login(){
 
             {/* bottom */}
             <p className='text-center text-gray-400 '>
-                Don't have an account yet? <Link href={'/register'} className='text-blue-700'>Sign Up</Link>
+                Don't have an account yet? <Link href={'/register'} className='text-blue-700'>Sign up</Link>
             </p>
         </section>
 
