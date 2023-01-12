@@ -7,6 +7,7 @@ import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useState } from 'react';
 import { useFormik } from 'formik';
 
+
 export default function Register(){
 
     const [show, setShow] = useState({ password: false, cpassword: false })
@@ -18,6 +19,7 @@ export default function Register(){
             password: '',
             cpassword: ''
         },
+        
         onSubmit
     })
 
