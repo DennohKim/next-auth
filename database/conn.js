@@ -1,18 +1,15 @@
-import { connect } from "http2";
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const connectMongo = async() => {
-    try{
-        const {connection} = await mongoose.connect(process.env.MONGOURL);
+const connectMongo = async () => {
+    try {
+        const { connection } = await mongoose.connect(process.env.MONGO_URL);
 
         if(connection.readyState == 1){
             return Promise.resolve(true)
         }
-
-    } catch(error){ 
+    } catch (error) {
         return Promise.reject(error)
-
     }
 }
 
-export default connectMongo
+export default connectMongo;

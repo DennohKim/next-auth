@@ -1,7 +1,7 @@
-import  { Schema } from 'moongose';
+import { Schema, model, models } from 'mongoose';
 
 const userSchema = new Schema({
-    username: String,
+    username : String,
     email: String,
     password: String
 })
